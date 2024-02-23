@@ -3,6 +3,7 @@ from scipy.linalg import lu, solve, norm
 
 
 def createA(x):
+    """ Creating a matrix """
     A = np.zeros((N, N))
     for i in range(N):
         for j in range(N):
@@ -14,6 +15,7 @@ def createA(x):
 
 
 def createE():
+    """ Creating the identity matrix """
     E = np.zeros((N, N))
     for i in range(N):
         E[i][i] = 1
@@ -22,6 +24,7 @@ def createE():
 
 
 def invert(a):
+    """ Inverting the matrix """
     P, L, U = lu(a)
     inverted = np.zeros((N, N))
     for i in range(N):
@@ -36,14 +39,16 @@ def invert(a):
 
 
 def condA(a):
+    """ Computing the conditional number of matrix """
     return norm(a) * norm(invert(a))
 
 
 def solution(x):
+    """ Solution of lab. work """
     E = createE()
     A = createA(x)
     invA = invert(A)
-    R = np.matmul(invA, A) - E
+    R = np.matmul(A, invA) - E
     normR = norm(R)
     print("Current x: ", x)
     print("Matrix A:\n", A)
